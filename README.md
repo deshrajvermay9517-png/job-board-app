@@ -1,36 +1,308 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JobBoard Pro - Next.js Job Board App
 
-## Getting Started
+JobBoard Pro is a modern frontend job board application built with **Next.js App Router** and **React.js**.
+Users can search jobs, filter jobs, sort jobs, view dynamic job details, save jobs in the browser, and submit a frontend-only application form.
 
-First, run the development server:
+---
+
+## Live Demo
+
+Live demo link will be added after deployment.
+
+---
+
+## Features
+
+* Job listing page
+* Search jobs by title, company, or skills
+* Filter jobs by location
+* Filter jobs by category
+* Filter jobs by job type
+* Filter jobs by experience level
+* Sort jobs by latest
+* Sort jobs by salary
+* Dynamic job details page
+* Save jobs using LocalStorage
+* Saved jobs section
+* Frontend-only apply form
+* Form validation
+* Responsive design
+* Dynamic metadata for job details pages
+
+---
+
+## Tech Stack
+
+* Next.js
+* React.js
+* JavaScript
+* CSS
+* App Router
+* LocalStorage
+
+---
+
+## Folder Structure
+
+```text
+src/
+│
+├── app/
+│   ├── jobs/
+│   │   └── [id]/
+│   │       └── page.js
+│   │
+│   ├── layout.js
+│   ├── page.js
+│   └── globals.css
+│
+├── components/
+│   ├── JobBoardClient.jsx
+│   ├── JobCard.jsx
+│   ├── SaveJobButton.jsx
+│   ├── SavedJobs.jsx
+│   └── ApplyForm.jsx
+│
+└── lib/
+    └── jobs.js
+```
+
+---
+
+## Project Architecture
+
+```mermaid
+flowchart TD
+    A[src/app/layout.js] --> B[src/app/page.js]
+    B --> C[JobBoardClient.jsx]
+    B --> D[jobs.js]
+
+    C --> E[Search, Filter and Sort Logic]
+    C --> F[JobCard.jsx]
+    C --> G[SavedJobs.jsx]
+
+    F --> H[SaveJobButton.jsx]
+    F --> I[Dynamic Job Details Link]
+
+    I --> J[src/app/jobs/[id]/page.js]
+    J --> K[getJobById from jobs.js]
+    J --> L[ApplyForm.jsx]
+    J --> M[SaveJobButton.jsx]
+
+    H --> N[LocalStorage]
+    G --> N
+```
+
+---
+
+## Project Workflow
+
+### Home Page Flow
+
+```mermaid
+flowchart LR
+    A[User opens Home Page] --> B[page.js]
+    B --> C[JobBoardClient]
+    C --> D[Search Input]
+    C --> E[Filters]
+    C --> F[Sorting]
+    D --> G[Filtered Jobs]
+    E --> G
+    F --> G
+    G --> H[Job Cards]
+```
+
+### Job Details Flow
+
+```mermaid
+flowchart LR
+    A[User clicks View Details] --> B[/jobs/job-id]
+    B --> C[jobs/[id]/page.js]
+    C --> D[Read params.id]
+    D --> E[Find matching job from jobs.js]
+    E --> F[Show job details]
+    F --> G[Apply Form]
+```
+
+### Saved Jobs Flow
+
+```mermaid
+flowchart LR
+    A[User clicks Save Job] --> B[SaveJobButton]
+    B --> C[Check LocalStorage]
+    C --> D{Already Saved?}
+    D -->|Yes| E[Remove Job]
+    D -->|No| F[Save Job]
+    E --> G[Update LocalStorage]
+    F --> G
+    G --> H[SavedJobs section updates]
+```
+
+---
+
+## How This Project Works
+
+The application is built using **Next.js App Router**.
+
+`src/app/layout.js` is the root layout of the application. It imports the global CSS file and defines the global metadata.
+
+`src/app/page.js` is the home page route. It imports job data from `src/lib/jobs.js` and passes that data to the `JobBoardClient` component.
+
+`JobBoardClient.jsx` is the main interactive client component. It handles job search, filters, sorting, and displays the filtered job list.
+
+`JobCard.jsx` displays a single job card with job title, company, location, salary, skills, and action buttons.
+
+`SaveJobButton.jsx` allows users to save or remove jobs using browser LocalStorage.
+
+`SavedJobs.jsx` displays all saved jobs from LocalStorage.
+
+`src/app/jobs/[id]/page.js` is a dynamic route. It shows the full details of a selected job based on the job ID in the URL.
+
+`ApplyForm.jsx` is a frontend-only application form with validation.
+
+`src/lib/jobs.js` works as a temporary local data source for job listings.
+
+---
+
+## Server Components and Client Components
+
+This project uses both **Server Components** and **Client Components**.
+
+### Server Components
+
+These files are Server Components by default:
+
+```text
+src/app/layout.js
+src/app/page.js
+src/app/jobs/[id]/page.js
+```
+
+Server Components are used for:
+
+* Page structure
+* Loading local job data
+* Dynamic job details
+* Metadata generation
+* Static page generation
+
+### Client Components
+
+These files use browser-side interactivity:
+
+```text
+JobBoardClient.jsx
+SaveJobButton.jsx
+SavedJobs.jsx
+ApplyForm.jsx
+```
+
+Client Components are used for:
+
+* Search input
+* Filters
+* Sorting
+* Button clicks
+* Form handling
+* LocalStorage
+* Saved jobs
+* Validation messages
+
+---
+
+## Next.js Concepts Used
+
+* App Router
+* `layout.js`
+* `page.js`
+* Dynamic routes using `[id]`
+* `generateMetadata`
+* `generateStaticParams`
+* Server Components
+* Client Components
+* Static export support
+
+---
+
+## React Concepts Used
+
+* Components
+* Props
+* useState
+* useEffect
+* useMemo
+* Event handling
+* Conditional rendering
+* List rendering using `map`
+* Form handling
+* LocalStorage
+
+---
+
+## Run Locally
+
+Clone the project:
+
+```bash
+git clone your-repository-link
+```
+
+Go to the project folder:
+
+```bash
+cd job-board-app
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open the app in browser:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Build Project
 
-To learn more about Next.js, take a look at the following resources:
+To create a production build:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Future Improvements
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* Backend API routes
+* Database integration
+* Recruiter dashboard
+* Candidate dashboard
+* Authentication
+* Real job application submission
+* Resume upload
+* Pagination
+* Job posting form
+* Email notifications
+* Admin panel
+* Search suggestions
+* Dark mode
+
+---
+
+## Author
+
+**Deshraj Verma**
+B.Tech CSE Student | Software Developer | MERN & Next.js Learner
