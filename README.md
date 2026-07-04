@@ -7,8 +7,7 @@ Users can search jobs, filter jobs, sort jobs, view dynamic job details, save jo
 
 ## Live Demo
 
-Live demo link will be added after deployment.
-
+https://deshrajvermay9517-png.github.io/job-board-app/
 ---
 
 ## Features
