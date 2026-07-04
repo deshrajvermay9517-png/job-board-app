@@ -73,25 +73,27 @@ src/
 
 ```mermaid
 flowchart TD
-    A[src/app/layout.js] --> B[src/app/page.js]
-    B --> C[JobBoardClient.jsx]
-    B --> D[jobs.js]
+    A["src/app/layout.js - Root Layout"] --> B["src/app/page.js - Home Page"]
+    B --> C["JobBoardClient.jsx - Main Client Component"]
+    B --> D["src/lib/jobs.js - Local Job Data"]
 
-    C --> E[Search, Filter and Sort Logic]
-    C --> F[JobCard.jsx]
-    C --> G[SavedJobs.jsx]
+    C --> E["Search, Filter and Sort Logic"]
+    C --> F["JobCard.jsx - Single Job Card"]
+    C --> G["SavedJobs.jsx - Saved Jobs Section"]
 
-    F --> H[SaveJobButton.jsx]
-    F --> I[Dynamic Job Details Link]
+    F --> H["SaveJobButton.jsx - Save or Remove Job"]
+    F --> I["View Details Link"]
 
-    I --> J[src/app/jobs/[id]/page.js]
-    J --> K[getJobById from jobs.js]
-    J --> L[ApplyForm.jsx]
-    J --> M[SaveJobButton.jsx]
+    I --> J["src/app/jobs/[id]/page.js - Dynamic Job Details Page"]
+    J --> K["getJobById function from jobs.js"]
+    J --> L["ApplyForm.jsx - Application Form"]
+    J --> M["SaveJobButton.jsx - Save Job From Details Page"]
 
-    H --> N[LocalStorage]
+    H --> N["LocalStorage"]
     G --> N
+    M --> N
 ```
+
 
 ---
 
@@ -116,13 +118,15 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-    A[User clicks View Details] --> B[/jobs/job-id]
-    B --> C[jobs/[id]/page.js]
-    C --> D[Read params.id]
-    D --> E[Find matching job from jobs.js]
-    E --> F[Show job details]
-    F --> G[Apply Form]
+    A["User clicks View Details"] --> B["Route: /jobs/job-id"]
+    B --> C["src/app/jobs/[id]/page.js"]
+    C --> D["Read params.id from URL"]
+    D --> E["Find matching job using getJobById"]
+    E --> F["Show job title, company, salary, skills and description"]
+    F --> G["Show ApplyForm component"]
+    F --> H["Show SaveJobButton component"]
 ```
+
 
 ### Saved Jobs Flow
 
